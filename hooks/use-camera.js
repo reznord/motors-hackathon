@@ -38,7 +38,7 @@ function detectFrame(video, model) {
   if (model) {
     model?.detect(video).then((predictions) => {
       // renderPredictions(predictions);
-      console.log("PRED ===>", predictions);
+      // console.log("PRED ===>", predictions);
       requestAnimationFrame(() => {
         detectFrame(video, model);
       });
