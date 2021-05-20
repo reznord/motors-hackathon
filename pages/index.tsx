@@ -1,5 +1,7 @@
+import IntroHero from "../components/intro-hero";
+
 function IndexPage() {
-  return <div>Hello</div>;
+  return <IntroHero />;
 }
 
 export default IndexPage;
