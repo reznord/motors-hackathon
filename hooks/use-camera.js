@@ -35,7 +35,6 @@ function renderPredictions(canvas, predictions) {
 }
  */
 function detectFrame(video, model) {
-  console.log("detectFrame ===>", video, model);
   if (model) {
     model?.detect(video).then((predictions) => {
       // renderPredictions(predictions);
