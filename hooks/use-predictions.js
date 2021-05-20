@@ -1,0 +1,3 @@
+function usePredictions() {}
+
+export { usePredictions };
