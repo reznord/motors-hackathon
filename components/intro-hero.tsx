@@ -8,8 +8,7 @@ export default function IntroHero() {
   return (
     <section className="text-gray-600 body-font">
       <div
-        className="text-gray-600 body-font bg-fixed bg-no-repeat bg-center h-screen fixed inset-0 opacity-20 z-0"
-        bg-contain
+        className="text-gray-600 body-font bg-fixed bg-no-repeat bg-center bg-cover h-screen fixed inset-0 opacity-20 z-0"
         style={{ backgroundImage: "url(/intro-bg.png)" }}
       ></div>
       <div className="container px-5 py-24 mx-auto relative z-10">
@@ -22,7 +21,7 @@ export default function IntroHero() {
               </span>
             </div>
           </h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
+          <p className="pt-4 lg:w-2/3 mx-auto leading-relaxed text-base">
             Don't know anything about cars?
             <br />
             Your future next car might be close to you
@@ -32,8 +31,10 @@ export default function IntroHero() {
           </p>
         </div>
         <div className="flex w-full flex-col mx-auto px-8 items-center">
-          <Button href="/camera" className="flex gap-2 items-center">
-            <CameraIcon className="h-8 w-8" /> Let's do it!
+          <Button href="/camera">
+            <span className="flex gap-2 items-center">
+              <CameraIcon className="h-8 w-8" /> Let's do it!
+            </span>
           </Button>
         </div>
         <div className="bottom-5 fixed left-0 w-screen flex flex-col items-center">

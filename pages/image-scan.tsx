@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import { useImageState } from "../context/image";
 import { useRouter } from "next/router";
+import Button from "../components/button";
 
 const fetchCarDetails = () => ({
   name: "Renault Megane",
@@ -113,7 +114,10 @@ function ImageScan() {
   };
 
   return (
-    <div className="flex flex-col items-center bg-black" style={{ width: '100%', height: "100vh" }}>
+    <div
+      className="flex flex-col items-center bg-black"
+      style={{ width: "100%", height: "100vh" }}
+    >
       {isModelLoading && (
         <p className="text-black absolute top-1/2 left-1/2 -mt-10 -mr-10">
           LOADING
@@ -139,7 +143,19 @@ function ImageScan() {
             />
           </svg>
         )}
-        {imgData && <img className="h-full" src={imgData} ref={imageRef} />}
+        {imgData && (
+          <img
+            src={imgData}
+            ref={imageRef}
+            style={{
+              margin: "auto",
+              width: "auto",
+              height: "auto",
+              position: "fixed",
+              backgroundColor: "black",
+            }}
+          />
+        )}
         {!isEmptyPredictions &&
           predictions.map((prediction, idx) => (
             <TargetBox
@@ -153,13 +169,16 @@ function ImageScan() {
             />
           ))}
       </div>
-      <div className="flex justify-center mt-2">
-        <button
+      <div className="flex justify-center flex-col mt-2 gap-5">
+        <Button
           onClick={reset}
-          className="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg ml-2"
+          className="text-center text-white border-0 py-4 px-8 focus:outline-none rounded text-lg focus:ring-2 focus:ring-black bg-red-500 hover:bg-red-600"
         >
           Scan other car
-        </button>
+        </Button>
+        <Button href="/carros/?q-renault-megane">
+          View more ads like this
+        </Button>
       </div>
     </div>
   );

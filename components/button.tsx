@@ -1,7 +1,7 @@
-export default function Button({ className = "", ...props }) {
+export default function Button(props) {
   return (
     <a
-      className={`text-white bg-blue-700 border-0 py-2 px-8 focus:outline-none hover:bg-blue-800 rounded text-lg focus:ring-2 focus:ring-black ${className}`}
+      className={`text-white border-0 py-4 px-8 focus:outline-none rounded text-lg focus:ring-2 focus:ring-black bg-blue-700 hover:bg-blue-800`}
       {...props}
     />
   );

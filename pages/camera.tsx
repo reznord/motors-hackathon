@@ -2,12 +2,12 @@ import { useRef, useCallback, useEffect } from "react";
 import Webcam from "react-webcam";
 import Buttom from "../components/button";
 import { useImageDispatch } from "../context/image";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 const videoConstraints = {
   width: 1280,
   height: 720,
-  facingMode: "environment"
+  facingMode: "environment",
 };
 
 const WebcamCapture = () => {
@@ -15,23 +15,28 @@ const WebcamCapture = () => {
   const takeScreenshot = useImageDispatch();
   const router = useRouter();
 
-  const capture = useCallback(
-    () => {
-      const imageSrc = webcamRef.current.getScreenshot();
-      takeScreenshot(imageSrc);
-      router.push("/image-scan");
-    },
-    [webcamRef]
-  );
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    takeScreenshot(imageSrc);
+    router.push("/image-scan");
+  }, [webcamRef]);
 
   useEffect(() => {
     router.prefetch("/image-scan");
   }, []);
 
   return (
-    <div style={{position: 'relative'}}>
+    <div style={{ position: "relative" }}>
       <Webcam
-        style={{margin: 'auto', minWidth: '100%', minHeight: '100%', width: 'auto', height: 'auto', position: 'fixed', backgroundColor: 'black'}}
+        style={{
+          margin: "auto",
+          minWidth: "100%",
+          minHeight: "100%",
+          width: "auto",
+          height: "auto",
+          position: "fixed",
+          backgroundColor: "black",
+        }}
         audio={false}
         ref={webcamRef}
         allowFullScreen
@@ -39,11 +44,9 @@ const WebcamCapture = () => {
         screenshotFormat="image/jpeg"
         videoConstraints={videoConstraints}
       />
-      <Buttom
-        onClick={capture}
-        style={{position: 'fixed', zIndex: 1, bottom: 10, left: "calc(50% - 82px)"}}>
-          I like this car
-      </Buttom>
+      <div className="flex w-full flex-col items-center mt-2 fixed z-10 bottom-14">
+        <Buttom onClick={capture}>I like this car</Buttom>
+      </div>
     </div>
   );
 };
