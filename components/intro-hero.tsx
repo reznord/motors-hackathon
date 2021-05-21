@@ -31,10 +31,8 @@ export default function IntroHero() {
           </p>
         </div>
         <div className="flex w-full flex-col mx-auto px-8 items-center">
-          <Button href="/camera">
-            <span className="flex gap-2 items-center">
-              <CameraIcon className="h-8 w-8" /> Let's do it!
-            </span>
+          <Button href="/camera" Icon={CameraIcon}>
+            Let's do it!
           </Button>
         </div>
         <div className="bottom-5 fixed left-0 w-screen flex flex-col items-center">

@@ -3,6 +3,8 @@ import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import { useImageState } from "../context/image";
 import { useRouter } from "next/router";
 import Button from "../components/button";
+import LeftArrow from "../components/left-arrow-icon";
+import RightArrow from "../components/right-arrow-icon";
 
 const fetchCarDetails = () => ({
   name: "Renault Megane",
@@ -156,12 +158,14 @@ function ImageScan() {
         <Button
           onClick={reset}
           className="text-center text-white border-0 py-4 px-8 focus:outline-none rounded text-lg focus:ring-2 focus:ring-black bg-red-500 hover:bg-red-600"
+          Icon={LeftArrow}
         >
           Scan another car
         </Button>
         <Button
           href="https://www.standvirtual.com/carros/q-renault-megane"
           target="_blank"
+          RightIcon={RightArrow}
         >
           View more ads like this
         </Button>
