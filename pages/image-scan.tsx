@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import Button from "../components/button";
 import { useImageState } from "../context/image";
+import { useRouter } from "next/router";
 
 const fetchCarDetails = () => ({
   name: "Renault Megane",
@@ -35,7 +36,6 @@ const TargetBox = ({ x, y, width, height, classType, score }) => (
 );
 
 function ImageScan() {
-  const fileInputRef = useRef(null);
   const imageRef = useRef(null);
   const [imgData, setImgData] = useState(null);
   const [predictions, setPredictions] = useState([]);
@@ -43,6 +43,7 @@ function ImageScan() {
   const [loadModel, setLoadModel] = useState(null);
   const [isModelLoading, setModelLoading] = useState(true);
   const screenshot = useImageState();
+  const router = useRouter();
 
   const fetchModel = async () => {
     setModelLoading(true);
@@ -80,12 +81,6 @@ function ImageScan() {
 
   const isEmptyPredictions = !predictions || predictions.length === 0;
 
-  const openFilePicker = () => {
-    if (fileInputRef?.current) {
-      fileInputRef.current.click();
-    }
-  };
-
   const normalizePredictions = (predictions, imgSize) => {
     if (!predictions || !imgSize || !imageRef) return predictions || [];
     return predictions.map((prediction) => {
@@ -114,46 +109,13 @@ function ImageScan() {
     console.log("Predictions: ", predictions);
   };
 
-  const readImage = (file) => {
-    return new Promise((rs, rj) => {
-      const fileReader = new FileReader();
-      if (fileReader) {
-        fileReader.onload = () => rs(fileReader.result);
-        fileReader.onerror = () => rj(fileReader.error);
-        fileReader.readAsDataURL(file);
-      }
-    });
-  };
-
-  const onSelectImage = async (e) => {
-    setPredictions([]);
-    setLoading(true);
-
-    const file = e.target.files[0];
-    const imgData = await readImage(file);
-    setImgData(imgData);
-
-    const imageElement = document.createElement("img");
-    imageElement.src = imgData;
-
-    imageElement.onload = async () => {
-      const imgSize = {
-        width: imageElement.width,
-        height: imageElement.height,
-      };
-      await detectObjectsOnImage(imageElement, imgSize);
-      setLoading(false);
-    };
-  };
-
   const reset = () => {
-    setImgData(null);
-    setPredictions([]);
+    router.back();
   };
 
   return (
-    <div className="flex flex-col items-center">
-      {isLoading && (
+    <div className="flex flex-col items-center bg-black" style={{ width: '100%', height: "100vh" }}>
+      {isModelLoading && (
         <p className="text-black absolute top-1/2 left-1/2 -mt-10 -mr-10">
           LOADING
         </p>
@@ -192,21 +154,12 @@ function ImageScan() {
             />
           ))}
       </div>
-      <input
-        type="file"
-        className="hidden"
-        ref={fileInputRef}
-        onChange={onSelectImage}
-      />
       <div className="flex justify-center mt-2">
-        <Button onClick={openFilePicker}>
-          {isLoading ? "Recognizing..." : "Select Image"}
-        </Button>
         <button
           onClick={reset}
           className="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg ml-2"
         >
-          Reset Image
+          Scan other car
         </button>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import Webcam from "react-webcam";
 import Buttom from "../components/button";
 import { useImageDispatch } from "../context/image";
@@ -23,6 +23,10 @@ const WebcamCapture = () => {
     },
     [webcamRef]
   );
+
+  useEffect(() => {
+    router.prefetch("/image-scan");
+  }, []);
 
   return (
     <div style={{position: 'relative'}}>
