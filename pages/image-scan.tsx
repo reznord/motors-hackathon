@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import Button from "../components/button";
 
 const MODELS = [
   {
