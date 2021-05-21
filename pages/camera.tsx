@@ -26,7 +26,12 @@ const WebcamCapture = () => {
   }, []);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div className="relative">
+      <img
+        src="/carmageddon-transparent.png"
+        className="fixed top-1 left-1/2 -ml-16 z-10 top-4"
+        width="150px"
+      />
       <Webcam
         style={{
           margin: "auto",

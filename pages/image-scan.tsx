@@ -114,36 +114,43 @@ function ImageScan() {
   };
 
   return (
-    <div className="grid place-items-center w-screen h-screen bg-black">
+    <div>
+      <img
+        src="/carmageddon-transparent.png"
+        className="fixed top-1 left-1/2 -ml-16 z-10 top-4"
+        width="150px"
+      />
       {isModelLoading && (
-        <p className="bg-black text-white absolute top-20 left-1/2 -mt-10 -ml-10">
-          Warming up
+        <p className="bg-black text-white fixed top-2 left-1/2 -mt-10 -ml-10">
+          Analysing
         </p>
       )}
-      <div className="relative">
-        {imgData && (
-          <img
-            src={imgData}
-            ref={imageRef}
-            style={{
-              margin: "auto",
-              width: "auto",
-              height: "auto",
-            }}
-          />
-        )}
-        {!isEmptyPredictions &&
-          predictions.map((prediction, idx) => (
-            <TargetBox
-              key={idx}
-              x={prediction.bbox[0]}
-              y={prediction.bbox[1]}
-              width={prediction.bbox[2]}
-              height={prediction.bbox[3]}
-              classType={prediction.class}
-              score={prediction.score * 100}
+      <div className="grid place-items-center w-screen h-screen bg-black">
+        <div className="relative">
+          {imgData && (
+            <img
+              src={imgData}
+              ref={imageRef}
+              style={{
+                margin: "auto",
+                width: "auto",
+                height: "auto",
+              }}
             />
-          ))}
+          )}
+          {!isEmptyPredictions &&
+            predictions.map((prediction, idx) => (
+              <TargetBox
+                key={idx}
+                x={prediction.bbox[0]}
+                y={prediction.bbox[1]}
+                width={prediction.bbox[2]}
+                height={prediction.bbox[3]}
+                classType={prediction.class}
+                score={prediction.score * 100}
+              />
+            ))}
+        </div>
       </div>
       <div className="flex w-full flex-col items-center mt-2 fixed z-10 bottom-14 gap-5">
         <Button
