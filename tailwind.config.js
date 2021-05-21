@@ -5,7 +5,20 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      textColor: [
+        'responsive',
+        'hover',
+        'focus',
+        'before',
+        'after',
+        'hover::before',
+        'hover::after',
+        'focus::before'
+      ],
+    },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-pseudo-elements'),
+  ],
 };
