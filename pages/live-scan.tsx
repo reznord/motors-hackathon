@@ -16,11 +16,16 @@ function LiveScan() {
           },
         })
         .then((stream) => {
+          // @ts-ignore
           window.stream = stream;
+
+          // @ts-ignore
           videoRef.current.srcObject = stream;
 
           return new Promise((resolve, reject) => {
+            // @ts-ignore
             videoRef.current.onloadedmetadata = () => {
+              // @ts-ignore
               resolve();
             };
           });
@@ -46,6 +51,7 @@ function LiveScan() {
   };
 
   const renderPredictions = (predictions) => {
+    // @ts-ignore
     const ctx = canvasRef.current.getContext("2d");
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     // Font options.
@@ -94,7 +100,7 @@ function LiveScan() {
           backgroundColor: "black",
         }}
       />
-      <canvas className="size" ref={canvasRef} className="absolute inset-0" />
+      <canvas className="size absolute inset-0" ref={canvasRef} />
     </div>
   );
 }
