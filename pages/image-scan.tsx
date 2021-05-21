@@ -4,8 +4,8 @@ import Button from "../components/button";
 import { useImageState } from "../context/image";
 
 const fetchCarDetails = () => ({
-  name: "Opel Astra",
-  value: "7k EUR",
+  name: "Renault Megane",
+  value: "8k EUR",
   type: "Diesel",
 });
 
@@ -62,7 +62,6 @@ function ImageScan() {
   }, [screenshot, loadModel]);
 
   useEffect(() => {
-    
     if (imgData && loadModel) {
       setLoading(true);
       const imageElement = document.createElement("img");
@@ -76,11 +75,8 @@ function ImageScan() {
         await detectObjectsOnImage(imageElement, imgSize);
         setLoading(false);
       };
-
     }
-
-  }, [imgData, loadModel])
-
+  }, [imgData, loadModel]);
 
   const isEmptyPredictions = !predictions || predictions.length === 0;
 
