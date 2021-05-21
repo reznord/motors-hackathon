@@ -40,7 +40,8 @@ const webCamPromise = async (videoRef) => {
       .getUserMedia({
         audio: false,
         video: {
-          facingMode: "user"
+          facingMode: "environment",
+          width: { min: 600 }
         }
       });
 
@@ -102,7 +103,7 @@ function Predictor() {
 
   useEffect(() => {
     if (videoRef?.current) {
-      fetchModel();
+      // fetchModel();
     }
   }, [videoRef]);
 
