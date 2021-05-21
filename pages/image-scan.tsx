@@ -2,21 +2,50 @@ import { useRef, useState, useEffect } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import Button from "../components/button";
 
+const MODELS = [
+  {
+    name: "Opel Astra",
+    value: "7k EUR",
+    type: "Diesel",
+  },
+  {
+    name: "Jaguar X-Type",
+    value: "70k EUR",
+    type: "Electric",
+  },
+];
+
+const fetchCarDetails = () => {
+  return {
+    name: "Opel Astra",
+    value: "7k EUR",
+    type: "Diesel",
+  };
+};
+
+const DisplayAttributes = () => {
+  const { name, value, type } = fetchCarDetails();
+  return (
+    <div>
+      <p className="absolute top-1 right-1 bg-white text-xs px-1">{name}</p>
+      <p className="absolute top-5 right-1 bg-white text-xs px-1">{value}</p>
+      <p className="absolute top-9 right-1 bg-white text-xs px-1">{type}</p>
+    </div>
+  );
+};
+
 const TargetBox = ({ x, y, width, height, classType, score }) => (
   <div
-    tw-content-before={`${classType} ${score.toFixed(1)}%`}
-    className="content-before before:text-green-500 before:bg-white before:-top-2.5 before:-left-2.5"
+    className="absolute border-green-500 bg-transparent border-4 z-20"
     style={{
-      position: "absolute",
       left: x,
       top: y,
       width,
       height,
-      border: "4px solid #1ac71a",
-      backgroundColor: "transparent",
-      zIndex: 20,
     }}
-  />
+  >
+    <DisplayAttributes />
+  </div>
 );
 
 function ImageScan() {
@@ -105,20 +134,38 @@ function ImageScan() {
     };
   };
 
+  const reset = () => {
+    setImgData(null);
+    setPredictions([]);
+  };
+
   return (
-    <div
-      className="flex flex-col items-center"
-      style={{ backgroundColor: "#282c34" }}
-    >
-      {isModelLoading && (
-        <p className="text-white absolute top-1/2 left-1/2 -mt-10 -mr-10">
+    <div className="flex flex-col items-center">
+      {isLoading && (
+        <p className="text-black absolute top-1/2 left-1/2 -mt-10 -mr-10">
           LOADING
         </p>
       )}
       <div
-        className="flex items-center justify-center border-4 border-white rounded-sm"
-        style={{ height: 700, minWidth: 200, position: "relative" }}
+        className="flex items-center justify-center rounded-sm mt-2"
+        style={{ height: 500, minWidth: 200, position: "relative" }}
       >
+        {!imgData && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-10 w-10"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+        )}
         {imgData && <img className="h-full" src={imgData} ref={imageRef} />}
         {!isEmptyPredictions &&
           predictions.map((prediction, idx) => (
@@ -139,13 +186,19 @@ function ImageScan() {
         ref={fileInputRef}
         onChange={onSelectImage}
       />
-      <div className="flex w-full flex-col mx-auto my-8 px-8 space-y-8 items-center">
-        <Button onClick={openFilePicker}>
+      <div className="flex justify-center mt-2">
+        <button
+          onClick={openFilePicker}
+          className="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg mr-2"
+        >
           {isLoading ? "Recognizing..." : "Select Image"}
-        </Button>
-        <Button href="https://www.standvirtual.com/carros">
-          Find the price for similar cars
-        </Button>
+        </button>
+        <button
+          onClick={reset}
+          className="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg"
+        >
+          Reset Image
+        </button>
       </div>
     </div>
   );
