@@ -114,35 +114,13 @@ function ImageScan() {
   };
 
   return (
-    <div
-      className="flex flex-col items-center bg-black"
-      style={{ width: "100%", height: "100vh" }}
-    >
+    <div className="grid place-items-center w-screen h-screen bg-black">
       {isModelLoading && (
-        <p className="text-black absolute top-1/2 left-1/2 -mt-10 -mr-10">
-          LOADING
+        <p className="bg-black text-white absolute top-20 left-1/2 -mt-10 -ml-10">
+          Warming up
         </p>
       )}
-      <div
-        className="flex items-center justify-center rounded-sm mt-2"
-        style={{ height: 500, minWidth: 200, position: "relative" }}
-      >
-        {!imgData && (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-10 w-10"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-        )}
+      <div className="relative">
         {imgData && (
           <img
             src={imgData}
@@ -151,8 +129,6 @@ function ImageScan() {
               margin: "auto",
               width: "auto",
               height: "auto",
-              position: "fixed",
-              backgroundColor: "black",
             }}
           />
         )}
@@ -169,14 +145,17 @@ function ImageScan() {
             />
           ))}
       </div>
-      <div className="flex justify-center flex-col mt-2 gap-5">
+      <div className="flex w-full flex-col items-center mt-2 fixed z-10 bottom-14 gap-5">
         <Button
           onClick={reset}
           className="text-center text-white border-0 py-4 px-8 focus:outline-none rounded text-lg focus:ring-2 focus:ring-black bg-red-500 hover:bg-red-600"
         >
-          Scan other car
+          Scan another car
         </Button>
-        <Button href="/carros/?q-renault-megane">
+        <Button
+          href="https://www.standvirtual.com/carros/q-renault-megane"
+          target="_blank"
+        >
           View more ads like this
         </Button>
       </div>
