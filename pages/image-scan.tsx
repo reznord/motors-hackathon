@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import Button from "../components/button";
+import { useImageState } from "../context/image";
 
 const MODELS = [
   {
@@ -56,6 +57,7 @@ function ImageScan() {
   const [isLoading, setLoading] = useState(false);
   const [loadModel, setLoadModel] = useState(null);
   const [isModelLoading, setModelLoading] = useState(true);
+  const screenshot = useImageState();
 
   const fetchModel = async () => {
     setModelLoading(true);
@@ -67,6 +69,33 @@ function ImageScan() {
   useEffect(() => {
     fetchModel();
   }, []);
+
+  useEffect(() => {
+    if (screenshot && !imgData) {
+      setImgData(screenshot);
+    }
+  }, [screenshot, loadModel]);
+
+  useEffect(() => {
+    
+    if (imgData && loadModel) {
+      setLoading(true);
+      const imageElement = document.createElement("img");
+      imageElement.src = imgData;
+
+      imageElement.onload = async () => {
+        const imgSize = {
+          width: imageElement.width,
+          height: imageElement.height,
+        };
+        await detectObjectsOnImage(imageElement, imgSize);
+        setLoading(false);
+      };
+
+    }
+
+  }, [imgData, loadModel])
+
 
   const isEmptyPredictions = !predictions || predictions.length === 0;
 
