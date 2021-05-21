@@ -2,26 +2,11 @@ import { useRef, useState, useEffect } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import Button from "../components/button";
 
-const MODELS = [
-  {
-    name: "Opel Astra",
-    value: "7k EUR",
-    type: "Diesel",
-  },
-  {
-    name: "Jaguar X-Type",
-    value: "70k EUR",
-    type: "Electric",
-  },
-];
-
-const fetchCarDetails = () => {
-  return {
-    name: "Opel Astra",
-    value: "7k EUR",
-    type: "Diesel",
-  };
-};
+const fetchCarDetails = () => ({
+  name: "Opel Astra",
+  value: "7k EUR",
+  type: "Diesel",
+});
 
 const DisplayAttributes = () => {
   const { name, value, type } = fetchCarDetails();
@@ -107,9 +92,11 @@ function ImageScan() {
   const readImage = (file) => {
     return new Promise((rs, rj) => {
       const fileReader = new FileReader();
-      fileReader.onload = () => rs(fileReader.result);
-      fileReader.onerror = () => rj(fileReader.error);
-      fileReader.readAsDataURL(file);
+      if (fileReader) {
+        fileReader.onload = () => rs(fileReader.result);
+        fileReader.onerror = () => rj(fileReader.error);
+        fileReader.readAsDataURL(file);
+      }
     });
   };
 
@@ -187,15 +174,12 @@ function ImageScan() {
         onChange={onSelectImage}
       />
       <div className="flex justify-center mt-2">
-        <button
-          onClick={openFilePicker}
-          className="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg mr-2"
-        >
+        <Button onClick={openFilePicker}>
           {isLoading ? "Recognizing..." : "Select Image"}
-        </button>
+        </Button>
         <button
           onClick={reset}
-          className="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg"
+          className="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg ml-2"
         >
           Reset Image
         </button>
