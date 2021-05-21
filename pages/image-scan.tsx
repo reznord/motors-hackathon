@@ -8,8 +8,8 @@ import RightArrow from "../components/right-arrow-icon";
 
 const fetchCarDetails = () => ({
   name: "Renault Megane",
-  value: "8k EUR",
-  type: "Diesel",
+  value: "23k EUR",
+  type: "Gasoline",
 });
 
 const DisplayAttributes = () => {
@@ -154,10 +154,10 @@ function ImageScan() {
             ))}
         </div>
       </div>
-      <div className="flex w-full flex-col items-center mt-2 fixed z-10 bottom-14 gap-5">
+      <div className="flex w-full flex-col items-center mt-2 absolute z-10 bottom-10 gap-5">
         <Button
           onClick={reset}
-          className="text-center text-white border-0 py-4 px-8 focus:outline-none rounded text-lg focus:ring-2 focus:ring-black bg-red-500 hover:bg-red-600"
+          className="text-center text-white border-0 py-2 px-4 focus:outline-none rounded text-lg focus:ring-2 focus:ring-black bg-red-500 hover:bg-red-600"
           Icon={LeftArrow}
         >
           Scan another car
