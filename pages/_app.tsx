@@ -1,6 +1,6 @@
-import "tailwindcss/tailwind.css";
-import '@tensorflow/tfjs-backend-cpu';
-import '@tensorflow/tfjs-backend-webgl';
+import "../styles/globals.css";
+import "@tensorflow/tfjs-backend-cpu";
+import "@tensorflow/tfjs-backend-webgl";
 
 import { ImageProvider } from "../context/image";
 
