@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import Button from "../components/button";
 
-const TargetBox = ({x, y, width, height, classType, score}) => 
+const TargetBox = ({ x, y, width, height, classType, score }) => (
   <div
     tw-content-before={`${classType} ${score.toFixed(1)}%`}
     className="content-before before:text-green-500 before:bg-white before:-top-2.5 before:-left-2.5"
     style={{
-      position: 'absolute',
+      position: "absolute",
       left: x,
       top: y,
       width,
@@ -16,7 +17,7 @@ const TargetBox = ({x, y, width, height, classType, score}) =>
       zIndex: 20,
     }}
   />
-
+);
 
 function ImageScan() {
   const fileInputRef = useRef(null);
@@ -26,7 +27,6 @@ function ImageScan() {
   const [isLoading, setLoading] = useState(false);
   const [loadModel, setLoadModel] = useState(null);
   const [isModelLoading, setModelLoading] = useState(true);
-  
 
   const fetchModel = async () => {
     setModelLoading(true);
@@ -44,7 +44,7 @@ function ImageScan() {
   const openFilePicker = () => {
     if (fileInputRef?.current) {
       fileInputRef.current.click();
-    };
+    }
   };
 
   const normalizePredictions = (predictions, imgSize) => {
@@ -105,11 +105,20 @@ function ImageScan() {
     };
   };
 
-
   return (
-    <div className="flex flex-col items-center" style={{backgroundColor: "#282c34"}}>
-      { isModelLoading && (<p className="text-white absolute top-1/2 left-1/2 -mt-10 -mr-10">LOADING</p>) }
-      <div className="flex items-center justify-center border-4 border-white rounded-sm" style={{height: 700, minWidth: 200, position: 'relative'}}>
+    <div
+      className="flex flex-col items-center"
+      style={{ backgroundColor: "#282c34" }}
+    >
+      {isModelLoading && (
+        <p className="text-white absolute top-1/2 left-1/2 -mt-10 -mr-10">
+          LOADING
+        </p>
+      )}
+      <div
+        className="flex items-center justify-center border-4 border-white rounded-sm"
+        style={{ height: 700, minWidth: 200, position: "relative" }}
+      >
         {imgData && <img className="h-full" src={imgData} ref={imageRef} />}
         {!isEmptyPredictions &&
           predictions.map((prediction, idx) => (
@@ -130,9 +139,14 @@ function ImageScan() {
         ref={fileInputRef}
         onChange={onSelectImage}
       />
-      <button onClick={openFilePicker} className="py-5 px-10 border-2 border-transparent bg-white text-yellow-600 hover:bg-transparent hover:text-blue hover:border-2 hover:border-solid hover:border-black">
-        {isLoading ? "Recognizing..." : "Select Image"}
-      </button>
+      <div className="flex w-full flex-col mx-auto my-8 px-8 space-y-8 items-center">
+        <Button onClick={openFilePicker}>
+          {isLoading ? "Recognizing..." : "Select Image"}
+        </Button>
+        <Button href="https://www.standvirtual.com/carros">
+          Find the price for similar cars
+        </Button>
+      </div>
     </div>
   );
 }
