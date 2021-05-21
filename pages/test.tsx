@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 
@@ -19,10 +19,10 @@ const renderPredictions = canvasRef => (predictions) => {
     ctx.lineWidth = 4;
     ctx.strokeRect(x, y, width, height);
     // Draw the label background.
-    // ctx.fillStyle = "#00FFFF";
-    // const textWidth = ctx.measureText(prediction.class).width;
-    // const textHeight = parseInt(font, 10); // base 10
-    // ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
+    ctx.fillStyle = "#00FFFF";
+    const textWidth = ctx.measureText(prediction.class).width;
+    const textHeight = parseInt(font, 10);
+    ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
   });
 
   predictions.forEach(prediction => {
@@ -30,15 +30,7 @@ const renderPredictions = canvasRef => (predictions) => {
     const y = prediction.bbox[1];
     // Draw the text last to ensure it's on top.
     ctx.fillStyle = "#000000";
-    // ctx.fillText(prediction.class, x, y);
-    if (prediction.class === "person") {
-      const size = ctx.measureText("Jaguar F-Type");
-      ctx.fillStyle = "#00FFFF";
-      ctx.fillRect(x, y, size.width + 10, 20);
-
-      ctx.fillStyle = "#000";
-      ctx.fillText("Jaguar F-Type", x, y);
-    }
+    ctx.fillText(prediction.class, x, y);
   });
 };
 
@@ -97,6 +89,7 @@ const detectFrame = (video, model) => async (canvasRef) => {
 function Predictor() {
   const videoRef = useVideo();
   const canvasRef = useRef();
+
 
   const fetchModel = async () => {
     try {
