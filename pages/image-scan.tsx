@@ -133,7 +133,7 @@ function ImageScan() {
     const imgData = await readImage(file);
     setImgData(imgData);
 
-    const imageElement = document.createElement("img");
+    const imageElement: any = document.createElement("img");
     imageElement.src = imgData;
 
     imageElement.onload = async () => {
