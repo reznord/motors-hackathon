@@ -1,4 +1,5 @@
 import useLogoCycle from "../hooks/use-logo-cycle";
+import Button from "./button";
 
 export default function IntroHero() {
   const logo = useLogoCycle(4000);
@@ -15,17 +16,13 @@ export default function IntroHero() {
           </h1>
           <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
             Did you know your future next car might be close to you? <br />
-            Use your camera to discover relevant information about vehicles
+            Don't know anything about cars? <br />
+            Use your camera to find out relevant information about vehicles
             sourrounding you.
           </p>
         </div>
         <div className="flex w-full flex-col mx-auto px-8 space-y-4 items-center">
-          <a
-            className="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg focus:ring-2 focus:ring-black"
-            href="/scanner"
-          >
-            That sounds cool. Let's do this!
-          </a>
+          <Button href="/scanner">That sounds cool. Let's do this!</Button>
         </div>
       </div>
     </section>
